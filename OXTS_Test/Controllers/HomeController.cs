@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OXTS_Test.Repository;
+using OXTS_Test.Models;
 
 namespace OXTS_Test.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        AnimalRepository repo = new AnimalRepository();
+
+        public ActionResult Animal()
         {
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Animal(FormCollection Collection)
         {
-            ViewBag.Message = "Your application description page.";
-
+            string Category = Collection["Category"].ToString();
+            string Tail = Collection["HasTail"].ToString();
+            ViewBag.result = repo.Categorise(Category, Tail);
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
